@@ -12,7 +12,7 @@ namespace TDDUnitTestLogin.Service.Tests
     public class LoginTests
     {
         [TestMethod()]
-        public void CheckLoginAccountLegalTest()
+        public void CheckLoginAccountLegalTest_輸入錯誤帳號_應回傳false()
         {
             Assert.Fail();
         }

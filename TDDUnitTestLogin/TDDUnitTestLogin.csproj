@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Account.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IAccountRepository.cs" />
     <Compile Include="Service\Login.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -53,8 +55,6 @@
   <ItemGroup>
     <Folder Include="Extension\" />
     <Folder Include="Factory\" />
-    <Folder Include="Model\" />
-    <Folder Include="Repository\" />
     <Folder Include="Tool\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

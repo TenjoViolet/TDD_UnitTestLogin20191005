@@ -14,24 +14,33 @@ namespace TDDUnitTestLogin.Service.Tests
     [TestClass()]
     public class LoginTests
     {
-        [TestMethod()]
-        public void CheckLoginAccountLegalTest_輸入錯誤帳號_應回傳false()
+        private List<Account> _ltAccounts;
+        private IAccountRepository _accountRepository;
+        private Login _login;
+
+        [TestInitialize]
+        public void Initial()
         {
-            //arrange準備受測物件、參數、預期結果
-            List<Account> ltAccounts = new List<Account>
+            _ltAccounts = new List<Account>
             {
                 new Account{ UserId="admin", Pwd="123456"},
                 new Account{ UserId="Jack", Pwd="123456"},
                 new Account{ UserId="Rose", Pwd="123456"},
             };
-            IAccountRepository accountRepository = Substitute.For<IAccountRepository>();
-            Login login = new Login(accountRepository);
-            accountRepository.SelectAccounts().Returns(ltAccounts);
+            _accountRepository = Substitute.For<IAccountRepository>();
+            _login = new Login(_accountRepository);
+            _accountRepository.SelectAccounts().Returns(_ltAccounts);
+        }
 
+
+        [TestMethod()]
+        public void CheckLoginAccountLegalTest_輸入錯誤帳號_應回傳false()
+        {
+            //arrange準備受測物件、參數、預期結果
             Boolean expected = false;
 
             //act執行受測方法
-            Boolean actual = login.CheckLoginAccountLegal("Violet", "123456");
+            Boolean actual = _login.CheckLoginAccountLegal("Violet", "123456");
 
             //assert驗證執行結果與預測結果是否一致
             Assert.AreEqual(expected, actual);
@@ -42,20 +51,10 @@ namespace TDDUnitTestLogin.Service.Tests
         public void CheckLoginAccountLegalTest_輸入正確帳號且輸入錯誤密碼_應回傳false()
         {
             //arrange準備受測物件、參數、預期結果
-            List<Account> ltAccounts = new List<Account>
-            {
-                new Account{ UserId="admin", Pwd="123456"},
-                new Account{ UserId="Jack", Pwd="123456"},
-                new Account{ UserId="Rose", Pwd="123456"},
-            };
-            IAccountRepository accountRepository = Substitute.For<IAccountRepository>();
-            Login login = new Login(accountRepository);
-            accountRepository.SelectAccounts().Returns(ltAccounts);
-
             Boolean expected = false;
 
             //act執行受測方法
-            Boolean actual = login.CheckLoginAccountLegal("admin", "777");
+            Boolean actual = _login.CheckLoginAccountLegal("admin", "777");
 
             //assert驗證執行結果與預測結果是否一致
             Assert.AreEqual(expected, actual);
@@ -65,20 +64,10 @@ namespace TDDUnitTestLogin.Service.Tests
         public void CheckLoginAccountLegalTest_輸入正確帳號且輸入正確密碼_應回傳true()
         {
             //arrange準備受測物件、參數、預期結果
-            List<Account> ltAccounts = new List<Account>
-            {
-                new Account{ UserId="admin", Pwd="123456"},
-                new Account{ UserId="Jack", Pwd="123456"},
-                new Account{ UserId="Rose", Pwd="123456"},
-            };
-            IAccountRepository accountRepository = Substitute.For<IAccountRepository>();
-            Login login = new Login(accountRepository);
-            accountRepository.SelectAccounts().Returns(ltAccounts);
-
             Boolean expected = true;
 
             //act執行受測方法
-            Boolean actual = login.CheckLoginAccountLegal("Jack", "123456");
+            Boolean actual = _login.CheckLoginAccountLegal("Jack", "123456");
 
             //assert驗證執行結果與預測結果是否一致
             Assert.AreEqual(expected, actual);

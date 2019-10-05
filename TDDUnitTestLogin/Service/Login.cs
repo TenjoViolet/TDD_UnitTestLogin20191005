@@ -23,7 +23,16 @@ namespace TDDUnitTestLogin.Service
             List<Account> Accounts = _AccountRepository.SelectAccounts();
             try
             {
-                blnRet = Accounts.Exists(x => x.UserId == strUserId);
+                //blnRet = Accounts.Exists(x => x.UserId == strUserId);
+                if (Accounts.Exists(x => x.UserId == strUserId))
+                {
+                    List<Account> accountGetOne = Accounts.Where(x => x.UserId == strUserId).ToList();
+                    blnRet = accountGetOne.Exists(x => x.Pwd == strPwd);
+                }
+                else
+                {
+                    blnRet = false;
+                }
                 
             }
             catch (Exception ex)

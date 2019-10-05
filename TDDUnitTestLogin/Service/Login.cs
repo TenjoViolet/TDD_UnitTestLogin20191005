@@ -8,6 +8,9 @@ namespace TDDUnitTestLogin.Service
 {
     public class Login
     {
-
+       public Boolean CheckLoginAccountLegal()
+       {
+            return false;
+       }
     }
 }
